@@ -1,0 +1,329 @@
+<!doctype html>
+<html>
+<head>
+    <title>Load Pattern Calculation</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style type="text/css">
+
+
+    .myButton {
+  	-moz-box-shadow:inset 0px -3px 7px 0px #29bbff;
+  	-webkit-box-shadow:inset 0px -3px 7px 0px #29bbff;
+  	box-shadow:inset 0px -3px 7px 0px #29bbff;
+  	background:-moz-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+  	background:-webkit-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+  	background:-o-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+  	background:-ms-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+  	background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+  	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#2dabf9', endColorstr='#0688fa',GradientType=0);
+  	background-color:#2dabf9;
+  	-moz-border-radius:3px;
+  	-webkit-border-radius:3px;
+  	border-radius:3px;
+  	border:1px solid #0b0e07;
+  	display:inline-block;
+  	cursor:pointer;
+  	color:#ffffff;
+  	font-family:Arial;
+  	font-size:15px;
+  	padding:9px 23px;
+  	text-decoration:none;
+  	text-shadow:0px 1px 0px #263666;
+  }
+  .myButton:hover {
+  	background:-moz-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+  	background:-webkit-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+  	background:-o-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+  	background:-ms-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+  	background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+  	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0688fa', endColorstr='#2dabf9',GradientType=0);
+  	background-color:#0688fa;
+  }
+  .myButton:active {
+  	position:relative;
+  	top:1px;
+  }
+
+
+  * { box-sizing:border-box; }
+
+    /* basic stylings ------------------------------------------ */
+    body
+
+    .container 		{
+      font-family:'Roboto';
+      margin:30px auto 0;
+      background:#E6E6FA;
+      padding:10px 50px 50px;
+    }
+    h2 		 {
+      text-align:center;
+      margin-bottom:50px;
+    }
+    h2 small {
+      font-weight:normal;
+      color:#888;
+      display:block;
+    }
+    .footer 	{ text-align:center; }
+    .footer a  { color:#53B2C8; }
+
+    /* form starting stylings ------------------------------- */
+    .group 			  {
+      position:relative;
+      margin-bottom:45px;
+    }
+    input 				{
+      font-size:18px;
+      padding:10px 10px 10px 5px;
+      display:block;
+      width:300px;
+      border:none;
+      border-bottom:1px solid #757575;
+    }
+    input:focus 		{ outline:none; }
+
+    /* LABEL ======================================= */
+    label 				 {
+      color:#999;
+      font-size:18px;
+      font-weight:normal;
+      position:absolute;
+      pointer-events:none;
+      left:5px;
+      top:10px;
+      transition:0.2s ease all;
+      -moz-transition:0.2s ease all;
+      -webkit-transition:0.2s ease all;
+    }
+
+    /* active state */
+    input:focus ~ label, input:valid ~ label 		{
+      top:-20px;
+      font-size:14px;
+      color:#5264AE;
+    }
+
+    /* BOTTOM BARS ================================= */
+    .bar 	{ position:relative; display:block; width:300px; }
+    .bar:before, .bar:after 	{
+      content:'';
+      height:2px;
+      width:0;
+      bottom:1px;
+      position:absolute;
+      background:#5264AE;
+      transition:0.2s ease all;
+      -moz-transition:0.2s ease all;
+      -webkit-transition:0.2s ease all;
+    }
+    .bar:before {
+      left:50%;
+    }
+    .bar:after {
+      right:50%;
+    }
+
+    /* active state */
+    input:focus ~ .bar:before, input:focus ~ .bar:after {
+      width:50%;
+    }
+
+    /* HIGHLIGHTER ================================== */
+    .highlight {
+      position:absolute;
+      height:60%;
+      width:100px;
+      top:25%;
+      left:0;
+      pointer-events:none;
+      opacity:0.5;
+    }
+
+    /* active state */
+    input:focus ~ .highlight {
+      -webkit-animation:inputHighlighter 0.3s ease;
+      -moz-animation:inputHighlighter 0.3s ease;
+      animation:inputHighlighter 0.3s ease;
+    }
+
+    /* ANIMATIONS ================ */
+    @-webkit-keyframes inputHighlighter {
+    	from { background:#5264AE; }
+      to 	{ width:0; background:transparent; }
+    }
+    @-moz-keyframes inputHighlighter {
+    	from { background:#5264AE; }
+      to 	{ width:0; background:transparent; }
+    }
+    @keyframes inputHighlighter {
+    	from { background:#5264AE; }
+      to 	{ width:0; background:transparent; }
+    }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+
+
+
+  <div class="group">
+    <h2> Calculate your Load Pattern </h2>
+    <p> User and transaction volumes are often not documented and you as a performance
+      engineer need to do some calculations to get the correct figures.
+      You can use my calculator below if you need some guidance how to find the correct load patterns for your test.
+    <p>
+  </div>
+
+ <h3> How many concurrent user will you need </h3>
+ <p> Use this calculator to get the correct number of virtual user for your performance test.</p>
+ <a href="#" onclick="toggle('div1')"> Calculate concurrent user </a>
+ <div id="div1" style="display:none;">
+
+<div class="group">
+  <p> Calculate the average and peak number of concurrent user<p>
+  <p> Peak user volumes are often 3 - 5 x average user volumes </p>
+</div>
+
+  <div class="group">
+    <input id="user" type=number required> </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Peak visit rate per hour </label>
+  </div>
+
+  <div class="group">
+    <input id="lenUse" type=number required>  </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Average visit length in minutes </label>
+  </div>
+
+  <div class="group">
+    <input id="avgSession" type="number" required>  </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Time period of concern in minutes </label>
+  </div>
+
+  <div class="group">
+   <button id="calculateConcUser" class="myButton">Calculate</button>
+ </div>
+
+ <div class="group">
+     <input id="result" type="number">  </input>
+     <span class="highlight"></span>
+     <span class="bar"></span>
+     <label> Number of concurrent user</label>
+   </p>
+ </div>
+</div>
+
+  <div> </div>
+
+  <h3>What is your goal session time</h3>
+  <p> Use this calculator to get the average session duration time which you should use in your load test configuration.</p>
+
+  <a href="#" onclick="toggle('div2')"> Calculate goal session time </a>
+  <div id="div2" style="display:none;">
+
+    <div class="group">
+      <p> This is the average time a user will need to complete a typical business transaction</p>
+    </div>
+
+  <div class="group">
+    <input id="seVU" type=number required> </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label> Total Number of User </label>
+  </div>
+
+ <div class="group">
+   <input id="seTxph" type=number required> </input>
+   <span class="highlight"></span>
+   <span class="bar"></span>
+   <label> Transactions per hour</label>
+ </div>
+
+ <div class="group">
+   <button id="calcGST" class="myButton">Calculate </button>
+</div>
+
+<div class="group">
+    <input id="resGST"col>  </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Goal session time in seconds </label>
+  </p>
+</div>
+
+</div>
+
+   <script type="text/javascript">
+
+
+            // calculate number of concurrent user
+            //
+            document.getElementById("calculateConcUser").onclick=function() {
+
+                var user       = document.getElementById("user").value;
+                var lenUse     = document.getElementById("lenUse").value
+                var avgSession = document.getElementById("avgSession").value
+
+
+                if (user >= 1 && lenUse > 0 && avgSession > 0 ){
+
+                  var lt = lenUse / avgSession
+                  var cUser = user * lt
+                  cUser = Math.round(cUser)
+
+                  document.getElementById("result").value = cUser;
+
+                }
+                else {
+
+                  alert("Not all input fields contains a value");
+                }
+            }
+            // calculate the Goal Session Time
+            //
+            document.getElementById("calcGST").onclick=function() {
+
+                var user       = document.getElementById("seVU").value;
+                var seTxph     = document.getElementById("seTxph").value;
+
+                if ( user >= 1 && seTxph > 0 ) {
+
+                  var res = user * 3600;
+                  res = res / seTxph;
+
+                  document.getElementById("resGST").value = res;
+
+                }
+                else {
+
+                  alert("Not all input fields contains a value");
+                }
+            }
+
+            function toggle(divID) {
+                var div = document.getElementById(divID);
+                if ( div.style.display == "block" ) {
+                  div.style.display = "none"
+                }
+                else {
+                  div.style.display = "block";
+                }
+            }
+
+    </script>
+</body>
+</html>

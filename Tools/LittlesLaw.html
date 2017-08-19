@@ -1,0 +1,428 @@
+<!doctype html>
+<html>
+<head>
+    <title>Qualitative and Quantitative Analysis</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style type="text/css">
+
+
+    .myButton {
+  	-moz-box-shadow:inset 0px -3px 7px 0px #29bbff;
+  	-webkit-box-shadow:inset 0px -3px 7px 0px #29bbff;
+  	box-shadow:inset 0px -3px 7px 0px #29bbff;
+  	background:-moz-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+  	background:-webkit-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+  	background:-o-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+  	background:-ms-linear-gradient(top, #2dabf9 5%, #0688fa 100%);
+  	background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+  	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#2dabf9', endColorstr='#0688fa',GradientType=0);
+  	background-color:#2dabf9;
+  	-moz-border-radius:3px;
+  	-webkit-border-radius:3px;
+  	border-radius:3px;
+  	border:1px solid #0b0e07;
+  	display:inline-block;
+  	cursor:pointer;
+  	color:#ffffff;
+  	font-family:Arial;
+  	font-size:15px;
+  	padding:9px 23px;
+  	text-decoration:none;
+  	text-shadow:0px 1px 0px #263666;
+  }
+  .myButton:hover {
+  	background:-moz-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+  	background:-webkit-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+  	background:-o-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+  	background:-ms-linear-gradient(top, #0688fa 5%, #2dabf9 100%);
+  	background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+  	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#0688fa', endColorstr='#2dabf9',GradientType=0);
+  	background-color:#0688fa;
+  }
+  .myButton:active {
+  	position:relative;
+  	top:1px;
+  }
+
+
+  * { box-sizing:border-box; }
+
+    /* basic stylings ------------------------------------------ */
+    body
+
+    .container 		{
+      font-family:'Roboto';
+      resize:both;
+      overflow: auto;
+      margin:30px auto 0;
+      background:#E6E6FA;
+      padding:10px 50px 50px;
+    }
+    h2 		 {
+      text-align:center;
+      margin-bottom:50px;
+    }
+    h2 small {
+      font-weight:normal;
+      color:#888;
+      display:block;
+    }
+    .footer 	{ text-align:center; }
+    .footer a  { color:#53B2C8; }
+
+    /* form starting stylings ------------------------------- */
+    .group 			  {
+      position:relative;
+      margin-bottom:45px;
+    }
+    input 				{
+      font-size:18px;
+      padding:10px 10px 10px 5px;
+      display:block;
+      width:300px;
+      border:none;
+      border-bottom:1px solid #757575;
+    }
+    input:focus 		{ outline:none; }
+
+    /* LABEL ======================================= */
+    label 				 {
+      color:#999;
+      font-size:18px;
+      font-weight:normal;
+      position:absolute;
+      pointer-events:none;
+      left:5px;
+      top:10px;
+      transition:0.2s ease all;
+      -moz-transition:0.2s ease all;
+      -webkit-transition:0.2s ease all;
+    }
+
+    /* active state */
+    input:focus ~ label, input:valid ~ label 		{
+      top:-20px;
+      font-size:14px;
+      color:#5264AE;
+    }
+
+    /* BOTTOM BARS ================================= */
+    .bar 	{ position:relative; display:block; width:300px; }
+    .bar:before, .bar:after 	{
+      content:'';
+      height:2px;
+      width:0;
+      bottom:1px;
+      position:absolute;
+      background:#5264AE;
+      transition:0.2s ease all;
+      -moz-transition:0.2s ease all;
+      -webkit-transition:0.2s ease all;
+    }
+    .bar:before {
+      left:50%;
+    }
+    .bar:after {
+      right:50%;
+    }
+
+    /* active state */
+    input:focus ~ .bar:before, input:focus ~ .bar:after {
+      width:50%;
+    }
+
+    /* HIGHLIGHTER ================================== */
+    .highlight {
+      position:absolute;
+      height:60%;
+      width:100px;
+      top:25%;
+      left:0;
+      pointer-events:none;
+      opacity:0.5;
+    }
+
+    /* active state */
+    input:focus ~ .highlight {
+      -webkit-animation:inputHighlighter 0.3s ease;
+      -moz-animation:inputHighlighter 0.3s ease;
+      animation:inputHighlighter 0.3s ease;
+    }
+
+    /* ANIMATIONS ================ */
+    @-webkit-keyframes inputHighlighter {
+    	from { background:#5264AE; }
+      to 	{ width:0; background:transparent; }
+    }
+    @-moz-keyframes inputHighlighter {
+    	from { background:#5264AE; }
+      to 	{ width:0; background:transparent; }
+    }
+    @keyframes inputHighlighter {
+    	from { background:#5264AE; }
+      to 	{ width:0; background:transparent; }
+    }
+
+    </style>
+</head>
+
+
+<div class="container">
+
+<body>
+<div class="group">
+  <h1> Qualitative and Quantitative Analysis </h1>
+  <p> Click the link below to learn more this topic </p>
+  <a href="#" onclick="toggle('div3')"> Some background about the qualitative and quantitative analysis </a>
+  <div id="div3" style="display:none;">
+    <p> Performance Engineers can use qualitative analysis to specify realistic load patterns.
+        Typically the number of concurrent users and the transaction volumes will be
+        calculated as part of the qualitative analysis step. </p>
+    <p> Elements of qualitative analysis are: </p>
+    <ul>
+      <li> Workload Analysis - Number of concurrent user?</li>
+      <li> Transaction analysis - Number of transactions per hour?</li>
+      <li> Set and review performance targets </li>
+      <li> Cross check with other performance requirements </li>
+    </ul>
+   <p> Once the load test executed and results have been collected some checks
+       can be executed to validate consistency of the test results. </p>
+   <p> Elements of quantitative analysis </p>
+   <ul>
+     <li> Deriving performance targets </li>
+     <li> Validating performance targets </li>
+     <li> Analysis interference across multiple types of transactions </li>
+
+   </ul>
+ </div>
+</div>
+
+<div class="group">
+  <h3> Little's Law </h3>
+  <p> Click the link below to learn more about the Little's Law </p>
+  <a href="#" onclick="toggle('div2')"> What is Little's Law? </a>
+  <div id="div2" style="display:none;">
+    <p> Little's Law : R = X C  </p>
+    <p> N = Business User </p>
+    <p> R = Average response time per business tranaction </p>
+    <p> X = Business transactions per second </p>
+    <p> Z = Average think time per business transaction in seconds </p>
+    <p> C = Average cycle time for one user = R+Z </p>
+  </div>
+</div>
+
+<div class="group">
+  <h3> Verify Response Time R = (N/X) - Z </h3>
+  <p> Click the link below to verify response times. You will need the number of business user,
+      the number of transactions and the think time in seconds
+  </p>
+  <a href="#" onclick="toggle('div1')"> Verify response times </a>
+</div>
+
+  <div id="div1" style="display:none;">
+
+  <div class="group">
+    <input id="iR" type=number required></input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>(N) Number of business user</label>
+  </div>
+
+  <div class="group">
+    <input id="iB" type=number required></input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>(X) Business transactions per second</label>
+  </div>
+
+  <div class="group">
+    <input id="iT" type=number required> </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>(Z) Seconds average think time</label>
+  </div>
+
+  <div class="group">
+    <button id="buttonVerifResponseTime" class="myButton">Calculate</button>
+  </div>
+
+  <div class="group">
+    <input id="resVerifResponse" type=number > </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>Average response time per business transactions (sec) </label>
+  </div>
+</div>
+
+<div class="group">
+  <h3> Verify Business User N = (R+Z) * X </h3>
+  <p> Click the link below to verify the number of business user. You will need the average response time,
+      the number of transactions and the think time in seconds
+  </p>
+  <a href="#" onclick="toggle('div4')"> Verify business user </a>
+  </div>
+
+  <div id="div4" style="display:none;">
+
+  <div class="group">
+    <input id="iBR"type=number required>  </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>(R) Average response time (sec) </label>
+  </div>
+
+  <div class="group">
+    <input id="iBX" type=number required> </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>(X) Business transactions per hour </label>
+  </div>
+
+  <div class="group">
+    <input id="iBT" type=number required> </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>(Z) Seconds think times </label>
+  </div>
+
+  <div class="group">
+    <button id="buttonVerifBusinessUser" class="myButton">Calculate</button>
+  </div>
+
+  <div class="group">
+    <input id="resVerifBusinessUser" </input>
+    <span class="highlight"></span>
+   <span class="bar"></span>
+   <label>Number of Business User </label>
+  </div>
+</div>
+
+  <div class="group">
+     <h3> Verify Cycle Time e.q. Goal Session Time </h3>
+     <p> Click the link below to verify the cycle or goal session time. You will need the number of business
+         user and the transactions per hour.
+     </p>
+     <a href="#" onclick="toggle('div5')"> Verify cycle time or goal session time </a>
+   </div>
+
+   <div id="div5" style="display:none;">
+
+  <div class="group">
+    <input id="iCN" type=number required>  </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>(N) Number of Business User </label>
+  </div>
+
+  <div class="group">
+    <input id="iCX" type=number required>  </input>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label>(X) Business transactions per hour </label>
+  </div>
+
+  <div class="group">
+    <button id="buttonVerifCycleTime" class="myButton">Calculate</button>
+  </div>
+
+
+  <div class="group">
+      <input id="resVerifCycleTime"> </input>
+       <span class="highlight"></span>
+       <span class="bar"></span>
+       <label>Cycle Time / Goal Sesssion Time (sec)</label>
+     </div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+
+            // Littles Law - Verify Response Time
+            //
+            document.getElementById("buttonVerifResponseTime").onclick=function() {
+
+                var resp       = document.getElementById("iR").value;
+                var btx        = document.getElementById("iB").value;
+                var think     =  document.getElementById("iT").value;
+
+                if ( resp > 0 && btx > 0 && think > 0 ) {
+                  var res = resp / btx;
+                  res = res - think ;
+                  if ( res < 0 ) {
+                    document.getElementById("resVerifResponse").value = ""
+                    alert("Response time can't be < 0 ");
+                  }else {
+                    document.getElementById("resVerifResponse").value = res;
+                  }
+                }
+                else {
+
+                  alert("Not all input fields contains a value");
+                }
+            }
+
+            // Littles Law - Verify Business User
+            //
+            document.getElementById("buttonVerifBusinessUser").onclick=function() {
+
+                var r       =  parseInt(document.getElementById("iBR").value);
+                var x        = parseInt(document.getElementById("iBX").value);
+                var z      = parseInt(document.getElementById("iBT").value);
+                var res = 0;
+
+                if ( r > 0 && x > 0 && z > 0 ) {
+
+
+                  res = r + z;
+                  res = res / 3600;
+
+                  res = res * x;
+                  document.getElementById("resVerifBusinessUser").value = res;
+                }
+                else {
+
+                  alert("Not all input fields contains a value");
+                }
+            }
+
+
+             // Littles Law - Verify Cycle Time
+            //
+            document.getElementById("buttonVerifCycleTime").onclick=function() {
+
+                var n       =  document.getElementById("iCN").value;
+                var x        = document.getElementById("iCX").value;
+                var res = 0;
+
+                if ( n > 0 && x > 0 ) {
+                  n = n / 3600;
+                  res = n / x;
+                  document.getElementById("resVerifCycleTime").value = res;
+                }
+                else {
+                  alert("Not all input fields contains a value");
+                }
+            }
+            function toggle(divID) {
+                var div = document.getElementById(divID);
+                if ( div.style.display == "block" ) {
+                  div.style.display = "none"
+                }
+                else {
+                  div.style.display = "block";
+                }
+            }
+
+
+
+    </script>
+
+
+</body>
+</html>
