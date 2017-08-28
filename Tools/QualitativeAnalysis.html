@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+    <title>Qualitative Analysis</title>
+    <link rel="stylesheet" href="W3.CSS">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</head>
+
+<body>
+
+  <div class="w3-card-4">
+
+    <header class="w3-container w3-blue">
+      <h1>Calulate Load Pattern </h1>
+    </header>
+
+    <div class="w3-container w3-padding-24">
+      <p>
+        <p> Performance Engineers can use qualitative analysis to specify realistic load patterns.
+            Typically the number of concurrent users and the transaction volumes will be
+            calculated as part of the qualitative analysis step. </p>
+        <p> Elements of qualitative analysis are: </p>
+        <ul>
+          <li> Workload Analysis - Number of concurrent user?</li>
+          <li> Transaction analysis - Number of transactions per hour?</li>
+          <li> Set and review performance targets </li>
+          <li> Cross check with other performance requirements </li>
+        </ul>
+
+       <p> Little's Law : R = X C  </p>
+       <p> N = Business User </p>
+       <p> R = Average response time per business tranaction </p>
+       <p> X = Business transactions per second </p>
+       <p> Z = Average think time per business transaction in seconds </p>
+       <p> C = Average cycle time for one user = R+Z </p>
+
+      </p>
+
+    </div>
+  </div>
+
+<div class=" w3-card-2">
+
+  <header class="w3-container w3-grey w3-padding-16">
+    <h1 > Calculate Transaction Volume </h1>
+  </header>
+
+   <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
+     <p>
+       Use the calculator below to get the number of business transactions which needs to be simulated in your
+       realistc load test.
+     <p>
+
+       <form class="w3-container w3-card-4 w3-light-grey">
+
+         <h2>Calculate Business Transactions per hour (X)</h2>
+
+         <p>(N) Number of Business User (N)</p>
+         <input class="w3-input w3-border" id="user" type="number">
+
+         <p>(C) Execution Time of a single Business Transaction in seconds </p>
+         <input class="w3-input w3-border" id="txTimeSec" type="number">
+
+
+         <p> </p>
+
+         <button class="w3-button w3-blue w3-border w3-border-blue" id="calcTXhour" type="button"> Calculate </button>
+
+         <p> (X) Total number of Business Transactions per hour </p>
+         <input class="w3-input w3-border w3-border-red" id="result" type="string">
+
+         <p> </p>
+
+       </form>
+       <p> </p>
+
+  </div>
+</div>
+
+<div class=" w3-card-2">
+
+<header class="w3-container w3-teal w3-padding-16">
+  <h1 > Calculate Concurrent Business User </h1>
+</header>
+
+<div class="w3-panel w3-blue-grey w3-leftbar w3-rightbar w3-border-gray">
+
+  <p> Use this calculator to get the correct number of virtual user for your performance test
+
+  </p>
+
+
+  <form class="w3-container w3-card-4 w3-light-grey">
+
+    <h2>How many concurrent user (N) will you need in your load test</h2>
+
+    <p>Number of visits or sessions per hour</p>
+    <input class="w3-input w3-border" id="vR" type="number">
+
+    <p>(C) Average visit or session duration in minutes</p>
+    <input class="w3-input w3-border" id="lenUse" type="number">
+
+    <p>Time period of concern or lenght of a working day in minutes</p>
+    <input class="w3-input w3-border" id="avgSession" type="number">
+
+    <p> </p>
+
+    <button id="calculateConcUser"class="w3-button w3-teal w3-border w3-border-blue" type="button"> Calculate</button>
+
+    <p>(N) Required number of concurrent user in your load test </p>
+    <input class="w3-input w3-border w3-border-red" id="resCU" type="string">
+
+    <p> </p>
+
+  </form>
+  <p> </p>
+
+  </div>
+  <p> </p>
+
+</div>
+
+
+
+<div class=" w3-card-2">
+
+<header class="w3-container w3-green w3-padding-16">
+  <h1 > Calculate Average Session Time </h1>
+</header>
+
+<div class="w3-panel w3-pale-green w3-leftbar w3-rightbar w3-border-green">
+
+  <p> Average session time is the time a user will need to complete a typical business transaction
+  </p>
+
+
+  <form class="w3-container w3-card-4 w3-light-grey">
+
+    <h2>Average Session Time (C) </h2>
+
+    <p>Total number of user (N) </p>
+    <input class="w3-input w3-border" id="seVU" type="number">
+
+    <p>(X) Business transactions per hour </p>
+    <input class="w3-input w3-border" id="seTxph" type="number">
+
+
+    <p> </p>
+
+    <button id="calcGST"class="w3-button w3-green w3-border w3-border-blue" type="button"> Calculate</button>
+
+    <p> Your average session time (C) in seconds </p>
+    <input class="w3-input w3-border w3-border-red" id="resGST" type="string">
+
+    <p> </p>
+
+  </form>
+  <p> </p>
+
+  </div>
+  <p> </p>
+
+</div>
+
+
+
+
+
+   <script type="text/javascript">
+
+
+
+   // calculate number of Tx per hour
+   //
+   document.getElementById("calcTXhour").onclick=function() {
+
+       var user       = document.getElementById("user").value;
+       var txTime     = document.getElementById("txTimeSec").value
+
+
+       if (user >= 1 && txTime > 0 ){
+
+         var lt = 3600 / txTime
+         lt = lt * user
+
+         lt = Math.round(lt)
+
+         document.getElementById("result").value = lt;
+
+       }
+       else {
+
+         alert("Not all input fields contains a value");
+       }
+   }
+
+   // calculate number of concurrent user
+   //
+   document.getElementById("calculateConcUser").onclick=function() {
+
+       var user       = document.getElementById("vR").value;
+       var lenUse     = document.getElementById("lenUse").value
+       var avgSession = document.getElementById("avgSession").value
+
+
+       if (user >= 1 && lenUse > 0 && avgSession > 0 ){
+
+         var lt = lenUse / avgSession
+         var cUser = user * lt
+         cUser = Math.round(cUser)
+
+         document.getElementById("resCU").value = cUser;
+
+       }
+       else {
+
+         alert("Not all input fields contains a value");
+       }
+   }
+   // calculate the Goal Session Time
+   //
+   document.getElementById("calcGST").onclick=function() {
+
+       var user       = document.getElementById("seVU").value;
+       var seTxph     = document.getElementById("seTxph").value;
+
+       if ( user >= 1 && seTxph > 0 ) {
+
+         var res = user * 3600;
+         res = res / seTxph;
+
+         res = roundToTwo(res);
+         document.getElementById("resGST").value = res;
+
+       }
+       else {
+
+         alert("Not all input fields contains a value");
+       }
+   }
+
+            function roundToTwo(num) {
+              return +(Math.round(num + "e+2")  + "e-2");
+            }
+
+
+    </script>
+</body>
+</html>
