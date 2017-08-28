@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+    <title>Quantitative Analysis</title>
+    <link rel="stylesheet" href="W3.CSS">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</head>
+
+<body>
+
+  <div class="w3-card-4">
+
+    <header class="w3-container w3-blue">
+      <h1>Check consistency of test results</h1>
+    </header>
+
+    <div class="w3-container w3-padding-24">
+      <p>
+       <p> Once the load test executed and results have been collected some checks
+           can be executed to validate consistency of the test results. </p>
+       <p> Typical elements of this quantitative analysis are </p>
+       <ul>
+         <li> Deriving performance targets </li>
+         <li> Validating performance targets </li>
+         <li> Analysis interference across multiple types of transactions </li>
+
+       </ul>
+
+       <p> Little's Law : R = X C  </p>
+       <p> N = Business User </p>
+       <p> R = Average response time per business tranaction </p>
+       <p> X = Business transactions per second </p>
+       <p> Z = Average think time per business transaction in seconds </p>
+       <p> C = Average cycle time for one user = R+Z </p>
+
+      </p>
+
+    </div>
+  </div>
+
+<div class=" w3-card-2">
+
+  <header class="w3-container w3-grey w3-padding-16">
+    <h1 > Verify Response Time R = (N / X) - Z </h1>
+  </header>
+
+   <div class="w3-panel w3-pale-blue w3-leftbar w3-rightbar w3-border-blue">
+     <p>
+       You know the load pattern and received a test report with response time of your new system.
+       It's often better to proof the test results.
+       Use this cacluator to check consistency of the reported response time figures.
+     </p>
+
+       <form class="w3-container w3-card-4 w3-light-grey">
+
+         <h2>Calculate Response Time </h2>
+
+         <p>(N) Number of business user </p>
+         <input class="w3-input w3-border" id="iR" type="number">
+
+         <p>(X) Number of business transactions per second</p>
+         <input class="w3-input w3-border" id="iB" type="number">
+
+         <p>(Z) Average thinktime in seconds </p>
+         <input class="w3-input w3-border" id="iT" type="number">
+
+         <p> </p>
+
+         <button class="w3-button w3-blue w3-border w3-border-blue" id="buttonVerifResponseTime" type="button"> Calculate </button>
+
+         <p>(R) Average response time per business transaction in seconds </p>
+         <input class="w3-input w3-border w3-border-red" id="resVerifResponse" type="string">
+
+         <p> </p>
+
+       </form>
+
+       <p> </p>
+
+  </div>
+</div>
+
+<div class=" w3-card-2">
+
+<header class="w3-container w3-teal w3-padding-16">
+  <h1 > Verify Cycle Time C = X / N </h1>
+</header>
+
+<div class="w3-panel w3-blue-grey w3-leftbar w3-rightbar w3-border-gray">
+
+  <p>
+    How fast does a normal user navigates through your business transasactions?
+    In most cases you have to calculate this figure by your own. Use my calculator below to get the cycle time of your business transactions.
+    Please note that cycle time can't be lower than your busines transactions total duration.
+  </p>
+
+
+  <form class="w3-container w3-card-4 w3-light-grey">
+
+    <h2>Calculate Cycle or Goal Session Time </h2>
+
+    <p>(N) Number of business user per hour</p>
+    <input class="w3-input w3-border" id="iCN" type="number">
+
+    <p>(X) Number of business transactions per hour</p>
+    <input class="w3-input w3-border" id="iCX" type="number">
+
+
+    <p> </p>
+
+    <button id="buttonVerifCycleTime"class="w3-button w3-teal w3-border w3-border-blue" type="button"> Calculate</button>
+
+    <p>(C) Cycle Time / Goal Sesssion Time (sec) </p>
+    <input class="w3-input w3-border w3-border-red" id="resVerifCycleTime" type="string">
+
+    <p> </p>
+
+  </form>
+  <p> </p>
+
+  </div>
+  <p> </p>
+
+</div>
+
+
+<div class=" w3-card-2">
+
+<header class="w3-container w3-green w3-padding-16">
+  <h1 > Verify Business User N = (R+Z) * X  </h1>
+</header>
+
+<div class="w3-panel w3-pale-green w3-leftbar w3-rightbar w3-border-green">
+
+  <p> You received some response time figures and you would like to cross check
+      if those figures are realistic. Use this simple business user verification utility and proof it.
+  </p>
+
+
+  <form class="w3-container w3-card-4 w3-light-grey">
+
+    <h2>Verify the number of Business User </h2>
+
+    <p>(R) Average response time in seconds </p>
+    <input class="w3-input w3-border" id="iBR" type="number">
+
+    <p>(X) Business transactions per hour </p>
+    <input class="w3-input w3-border" id="iBX" type="number">
+
+    <p>(Z) Think time in seconds </p>
+    <input class="w3-input w3-border w3-border-red" id="iBT" type="number">
+
+
+    <p> </p>
+
+    <button id="buttonVerifBusinessUser"class="w3-button w3-green w3-border w3-border-blue" type="button"> Calculate</button>
+
+    <p>(N) Number of Business User </p>
+    <input class="w3-input w3-border" id="resVerifBusinessUser" type="string">
+
+    <p> </p>
+
+  </form>
+  <p> </p>
+
+  </div>
+  <p> </p>
+
+</div>
+
+
+
+
+
+   <script type="text/javascript">
+
+
+     // Littles Law - Verify Response Time
+     //
+     document.getElementById("buttonVerifResponseTime").onclick=function() {
+
+         var resp       = document.getElementById("iR").value;
+         var btx        = document.getElementById("iB").value;
+         var think     =  document.getElementById("iT").value;
+
+         if ( resp > 0 && btx > 0 && think > 0 ) {
+           var res = resp / btx;
+           res = res - think ;
+           if ( res < 0 ) {
+             document.getElementById("resVerifResponse").value = ""
+             alert("Response time can't be < 0 ");
+           }else {
+             document.getElementById("resVerifResponse").value = res;
+           }
+         }
+         else {
+
+           alert("Not all input fields contains a value");
+         }
+     }
+
+     // Littles Law - Verify Cycle Time
+    //
+    document.getElementById("buttonVerifCycleTime").onclick=function() {
+
+        var n       =  document.getElementById("iCN").value;
+        var x        = document.getElementById("iCX").value;
+        var res = 0;
+
+        if ( n > 0 && x > 0 ) {
+          res = x / n;
+          document.getElementById("resVerifCycleTime").value = res;
+        }
+        else {
+          alert("Not all input fields contains a value");
+        }
+    }
+
+    // Littles Law - Verify Business User
+    //
+    document.getElementById("buttonVerifBusinessUser").onclick=function() {
+
+        var r       =  parseInt(document.getElementById("iBR").value);
+        var x        = parseInt(document.getElementById("iBX").value);
+        var z      = parseInt(document.getElementById("iBT").value);
+        var res = 0;
+
+        if ( r > 0 && x > 0 && z > 0 ) {
+
+          res = r + z;
+          res = res / 3600;
+
+          res = res * x;
+          document.getElementById("resVerifBusinessUser").value = res;
+        }
+        else {
+
+          alert("Not all input fields contains a value");
+        }
+    }
+
+            function roundToTwo(num) {
+              return +(Math.round(num + "e+2")  + "e-2");
+            }
+
+
+    </script>
+</body>
+</html>
